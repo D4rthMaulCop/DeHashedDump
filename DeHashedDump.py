@@ -77,7 +77,7 @@ elif len(sys.argv) == 4:
         enable_debugging = True
         print(colored(banner, 'blue'))
         query_dehashed(api_key,enable_debugging)
-    else:
-        print(colored(banner, 'blue'))
-        print(usage)
+else:
+    print(colored(banner, 'blue'))
+    print(usage)
     
