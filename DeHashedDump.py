@@ -45,6 +45,7 @@ def query_dehashed(key, debug):
             print(colored("Email: ", 'green') + entry['email'])
             print(colored("Username: ", 'green') + entry['username'])
             print(colored("Password: ", 'green') + entry['password'])
+            print(colored("Password: ", 'green') + entry['phone'])
             print(colored("Password Hash: ", 'green') + entry['hashed_password'])
             print(colored("Database: ", 'green') + entry['database_name'])
             print("")
