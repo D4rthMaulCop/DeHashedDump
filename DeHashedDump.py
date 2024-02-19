@@ -28,7 +28,7 @@ banner = """
 
 def query_dehashed(key, debug):
     
-    url = 'https://api.dehashed.com/search?query=' + domain
+    url = 'https://api.dehashed.com/search?query=' + domain + '&size=10000'
     
     headers = {
         'Accept': 'application/json',
