@@ -1,6 +1,7 @@
 import requests
 import json
 import sys
+import csv
 from termcolor import colored
 from requests.auth import HTTPBasicAuth
 
@@ -10,7 +11,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 email = ''
 api_key = ''
 domain = ''
-enable_debugging = False
+debug = False
+output_csv = False
 
 banner = """
  _____     ______     __  __     ______     ______     __  __     ______     _____       
@@ -26,8 +28,15 @@ banner = """
   \/____/   \/_____/   \/_/  \/_/   \/_/                                                                                                                                                      
 """
 
-def query_dehashed(key, debug):
-    
+def export_to_csv(data, filename):
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Email', 'Username', 'Password', 'Phone', 'Hashed Password', 'Database Name'])
+        for entry in data:
+            writer.writerow([entry['email'], entry['username'], entry['password'], entry['phone'], entry['hashed_password'], entry['database_name']])
+
+def query_dehashed(key = "", debug = False, csv_export = False):
+
     url = 'https://api.dehashed.com/search?query=' + domain + '&size=10000'
     
     headers = {
@@ -40,6 +49,8 @@ def query_dehashed(key, debug):
 
     if debug == True:
         print(decodedResponse['entries'])
+    elif csv_export == True:
+        export_to_csv(decodedResponse['entries'], 'dehashed_results.csv')
     elif debug == False:
         for entry in decodedResponse['entries']:
             print(colored("Email: ", 'green') + entry['email'])
@@ -49,7 +60,7 @@ def query_dehashed(key, debug):
             print(colored("Password Hash: ", 'green') + entry['hashed_password'])
             print(colored("Database: ", 'green') + entry['database_name'])
             print("")
-    
+
     print("Total Identities found:\t" + str(decodedResponse['total']))
     print("API Query Balance:\t" + str(decodedResponse['balance']))
 
@@ -59,6 +70,7 @@ This script is useful try and find leaked credentals or emails durinig the recon
 
 --domain\t domain to query
 --debug\t\t enable debugging (prints out raw json)
+--csv\t\t domain to query
 
 C:\Tools\Scripts> python .\QueryDeHashed.py --domain example.com 
 C:\Tools\Scripts> python .\QueryDeHashed.py --domain example.com --debug
@@ -68,17 +80,22 @@ if len(sys.argv) == 3:
     if sys.argv[1] == '--domain':
         domain = sys.argv[2] 
         print(colored(banner, 'blue'))
-        query_dehashed(api_key, enable_debugging)
+        query_dehashed(api_key, debug)
     else:
         print(colored(banner, 'blue'))
         print(usage)
 elif len(sys.argv) == 4:
     if sys.argv[1] == '--domain' and sys.argv[3] == '--debug':
         domain = sys.argv[2] 
-        enable_debugging = True
+        debug = True
         print(colored(banner, 'blue'))
-        query_dehashed(api_key,enable_debugging)
+        query_dehashed(api_key,debug)
+    if sys.argv[1] == '--domain' and sys.argv[3] == '--csv':
+        domain = sys.argv[2] 
+        output_csv = True
+        print(colored(banner, 'blue'))
+        query_dehashed(api_key, debug, output_csv)
 else:
     print(colored(banner, 'blue'))
-    print(usage)
+    print(usage)    
     
