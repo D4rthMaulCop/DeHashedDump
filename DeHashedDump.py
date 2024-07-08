@@ -70,7 +70,7 @@ This script is useful try and find leaked credentals or emails durinig the recon
 
 --domain\t domain to query
 --debug\t\t enable debugging (prints out raw json)
---csv\t\t domain to query
+--csv\t\t output results to csv file
 
 C:\Tools\Scripts> python .\QueryDeHashed.py --domain example.com 
 C:\Tools\Scripts> python .\QueryDeHashed.py --domain example.com --debug
