@@ -11,9 +11,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 email = '' # chamge me
 api_key = '' # change me
 
-domain = '' # no need to change
-debug = False # no need to change
-output_csv = False # no need to change
+# no need to change
+domain = '' 
+debug = False
+output_csv = False
 
 banner = """
  _____     ______     __  __     ______     ______     __  __     ______     _____       
