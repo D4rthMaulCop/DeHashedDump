@@ -8,8 +8,9 @@ from requests.auth import HTTPBasicAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-email = '' # chamge me
-api_key = '' # change me
+# change me
+email = ''
+api_key = '' 
 
 # no need to change
 domain = '' 
