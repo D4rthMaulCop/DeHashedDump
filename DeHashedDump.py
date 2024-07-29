@@ -8,11 +8,12 @@ from requests.auth import HTTPBasicAuth
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-email = ''
-api_key = ''
-domain = ''
-debug = False
-output_csv = False
+email = '' # chamge me
+api_key = '' # change me
+
+domain = '' # no need to change
+debug = False # no need to change
+output_csv = False # no need to change
 
 banner = """
  _____     ______     __  __     ______     ______     __  __     ______     _____       
